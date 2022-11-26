@@ -1,0 +1,13 @@
+JWT :
+JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.
+
+Although JWTs can be encrypted to also provide secrecy between parties, we will focus on signed tokens. Signed tokens can verify the integrity of the claims contained within it, while encrypted tokens hide those claims from other parties. When tokens are signed using public/private key pairs, the signature also certifies that only the party holding the private key is the one that signed it.
+
+3 Benefits of JWT :
+No Database Table : This implies fewer DB queries, which implies faster response time. In case you are using paid services like DynamoDb that charge per query basis, JWT might reduce the costs marginally. But these can be resolved using tools like Redis in case of sessions.
+
+Simpler to use if careful : If your architecture doesn’t user client Sessions and your security basics are clear, the development time in case of JWT is faster using the existing libraries.
+
+Used across services : You can have one authorization server that deals with the Login/Registration and generates the token, all the subsequent requests will need not have to go to the authorization server as the only the Auth-server will have have the private key, and rest of the severs will have the public-key to verify the signature. This is really useful in case of corporate systems where in the authorization server is in a secure environment. e.g. a user needs to be connected to the intranet to login but once done, the public servers can verify and proceed on.
+Similar setup can be used for OAuth implementation.
+The best part is that there is no connection between the the auth-server and the rest of the servers other than the pre-defined public key.
